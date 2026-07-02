@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>赵晖 | AI 应用开发与自动化</title>
+    <meta
+      name="description"
+      content="赵晖的个人网站，展示 AI Agent、自动化工作流、通信与工程实现能力。"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="background-orb orb-a"></div>
+    <div class="background-orb orb-b"></div>
+    <div class="background-grid" aria-hidden="true"></div>
+
+    <div class="page-shell">
+      <header class="site-header" id="top">
+        <a class="brand" href="#top" aria-label="返回顶部">
+          <span class="brand-mark"></span>
+          <span class="brand-text">赵晖</span>
+        </a>
+
+        <button
+          class="menu-toggle"
+          type="button"
+          aria-expanded="false"
+          aria-controls="site-nav"
+          aria-label="打开导航菜单"
+        >
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="site-nav" id="site-nav" aria-label="主导航">
+          <a href="#home">首页</a>
+          <a href="#projects">项目</a>
+          <a href="#works">作品</a>
+          <a href="#skills">能力</a>
+          <a href="#contact">联系</a>
+        </nav>
+      </header>
+
+      <main>
+        <section class="hero section" id="home">
+          <div class="hero-inner reveal">
+            <p class="hero-tagline">AI 应用开发 / 自动化工作流 / 通信工程背景</p>
+            <h1>
+              把复杂工具链，
+              <br />
+              做成真正能解决问题的应用。
+            </h1>
+            <p class="hero-description">
+              我是赵晖，正在寻找 AI 应用开发、Agent 工程和智能自动化相关岗位。
+              我关注的不只是模型本身，而是如何把工作流、知识检索、本地工具和真实业务场景接起来，
+              做成能落地、能解释、能持续复用的系统。
+            </p>
+
+            <div class="hero-actions">
+              <a class="button button-primary" href="#projects">查看重点项目</a>
+              <a class="button button-secondary" href="#contact">联系我</a>
+            </div>
+
+            <div class="hero-signals">
+              <article>
+                <span>04</span>
+                <p>重点 AI / Agent 项目持续迭代</p>
+              </article>
+              <article>
+                <span>20+</span>
+                <p>AI 行业情报与自动化信息入口整合</p>
+              </article>
+              <article>
+                <span>通信 + AI</span>
+                <p>跨学科的问题拆解与工程实现能力</p>
+              </article>
+            </div>
+          </div>
+
+          <div class="hero-marquee" aria-label="项目风格视觉画廊">
+            <div class="hero-marquee-fade"></div>
+            <div class="hero-marquee-track" id="hero-marquee-track"></div>
+          </div>
+        </section>
+
+        <section class="section intro-band reveal">
+          <p>
+            我想做的，是把大模型能力接到真实流程里，而不是停留在演示层。
+            无论是本地诊断 Agent、知识助手、自动化工作流，还是行业情报系统，我更在意的是
+            问题是否被真正解决，流程是否变得更清晰，结果是否更可信。
+          </p>
+        </section>
+
+        <section class="section project-section" id="projects">
+          <div class="section-heading reveal">
+            <div>
+              <p class="section-kicker">重点项目</p>
+              <h2>围绕真实问题，构建可落地的 AI 系统。</h2>
+            </div>
+            <p class="section-summary">
+              这些项目的共同点不是技术名词，而是都在处理真实效率问题：
+              怎么做诊断、怎么做检索、怎么做自动化、怎么让信息沉淀下来。
+            </p>
+          </div>
+
+          <div class="project-list">
+            <article class="project-card reveal">
+              <div class="project-meta">
+                <p>2026.05 - 至今</p>
+                <span>Python / Streamlit / LangGraph / RAG</span>
+              </div>
+              <div class="project-main">
+                <h3>NetDiag Agent 本地网络诊断智能体</h3>
+                <p>
+                  面向网页访问慢、单站异常和游戏卡顿等场景，把分散的
+                  <code>ping</code>、<code>nslookup</code>、<code>tracert</code>
+                  排障流程整合成一个可交互诊断工具。
+                </p>
+              </div>
+              <div class="project-grid">
+                <div>
+                  <h4>问题</h4>
+                  <p>个人用户依赖命令行排查网络问题，定位门槛高，结果难理解。</p>
+                </div>
+                <div>
+                  <h4>方法</h4>
+                  <p>基于 LangGraph 组织工具调用流程，结合知识库、长期记忆和 Query Rewrite 提升诊断质量。</p>
+                </div>
+                <div>
+                  <h4>结果</h4>
+                  <p>完成“症状输入 - 探测执行 - 结论解释”的完整原型，让网络排障更高效、更可解释。</p>
+                </div>
+              </div>
+              <a class="project-link" href="https://github.com/huige66631/NetDiag-Agent" target="_blank" rel="noreferrer">查看 GitHub</a>
+            </article>
+
+            <article class="project-card reveal">
+              <div class="project-meta">
+                <p>2026.06 - 至今</p>
+                <span>FastAPI / Streamlit / Hybrid RAG / Docker</span>
+              </div>
+              <div class="project-main">
+                <h3>通信 / 电子行业企业知识助手 Agent</h3>
+                <p>
+                  面向资料分散、检索效率低和答案难溯源的问题，搭建可本地部署的企业知识助手，
+                  让资料查询变成可检索、可引用、可追问的流程。
+                </p>
+              </div>
+              <div class="project-grid">
+                <div>
+                  <h4>问题</h4>
+                  <p>传统手册与测试规范依赖人工翻阅，检索耗时，连续追问体验弱。</p>
+                </div>
+                <div>
+                  <h4>方法</h4>
+                  <p>实现文档上传解析、Hybrid RAG、KB-first Agent 路由与会话记忆持久化。</p>
+                </div>
+                <div>
+                  <h4>结果</h4>
+                  <p>打通从资料入库到前端问答交互的完整闭环，提升定位效率与回答可信度。</p>
+                </div>
+              </div>
+              <a class="project-link" href="https://github.com/huige66631/telecom-knowledge-assistant" target="_blank" rel="noreferrer">查看 GitHub</a>
+            </article>
+
+            <article class="project-card reveal">
+              <div class="project-meta">
+                <p>2026.06 - 至今</p>
+                <span>Obsidian / Codex / PowerShell / GitHub</span>
+              </div>
+              <div class="project-main">
+                <h3>AI 行业情报自动采集与知识蒸馏系统</h3>
+                <p>
+                  针对 AI 行业信息更新快、来源分散、长期知识难沉淀的问题，
+                  构建“自动采集 - 周级蒸馏 - 长期回填”的个人知识闭环。
+                </p>
+              </div>
+              <div class="project-grid">
+                <div>
+                  <h4>问题</h4>
+                  <p>手工整理行业信息耗时高，且难以持续沉淀成长期可用的知识资产。</p>
+                </div>
+                <div>
+                  <h4>方法</h4>
+                  <p>整合约 20 个资讯入口，并通过 Codex 自动任务与脚本同步串起整理、发布与回填。</p>
+                </div>
+                <div>
+                  <h4>结果</h4>
+                  <p>打通日报、周报和长期沉淀链路，预计每天节省 30 到 45 分钟的信息整理时间。</p>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="section works-section" id="works">
+          <div class="section-heading reveal">
+            <div>
+              <p class="section-kicker">作品切片</p>
+              <h2>不只是项目名，更是我解决问题的方式。</h2>
+            </div>
+          </div>
+
+          <div class="works-layout">
+            <article class="work-feature reveal">
+              <p class="work-type">Automation Workflow</p>
+              <h3>新闻聚合与智能推送工作流</h3>
+              <p>
+                用 n8n 把多源新闻抓取、关键词过滤、去重分类和消息推送串成一条稳定可复用的自动化链路，
+                减少重复操作，提升信息获取效率。
+              </p>
+              <ul>
+                <li>多源采集与调度</li>
+                <li>规则化筛选与清洗</li>
+                <li>消息自动推送</li>
+              </ul>
+            </article>
+
+            <div class="works-stack">
+              <article class="mini-work reveal">
+                <p class="work-type">Research x Engineering</p>
+                <h3>OFDM 无线语音传输系统</h3>
+                <p>基于 MATLAB / Simulink 完成语音采集、调制解调、信道仿真、同步与均衡设计，验证通信链路闭环。</p>
+              </article>
+              <article class="mini-work reveal">
+                <p class="work-type">Execution Style</p>
+                <h3>我的工作方式</h3>
+                <p>倾向先拆问题，再搭流程，最后把结果做成能反复复用的系统。这也是我做 Agent 和自动化项目的一贯方法。</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section skills-section" id="skills">
+          <div class="section-heading reveal">
+            <div>
+              <p class="section-kicker">能力结构</p>
+              <h2>把开发、自动化和业务理解连接起来。</h2>
+            </div>
+          </div>
+
+          <div class="skills-grid">
+            <article class="skill-block reveal">
+              <h3>AI 应用开发</h3>
+              <p>熟悉大模型 API 调用、Prompt 设计、RAG、轻量 Query Rewrite、记忆增强与 Agent 工作流落地。</p>
+            </article>
+            <article class="skill-block reveal">
+              <h3>工程实现</h3>
+              <p>使用 Python 完成脚本、接口联调、数据处理和原型开发，了解 FastAPI、Streamlit、SQLite、Docker 等常见工程组件。</p>
+            </article>
+            <article class="skill-block reveal">
+              <h3>自动化工作流</h3>
+              <p>熟悉 n8n、PowerShell、定时任务和多源数据采集编排，擅长把重复动作收敛成稳定流程。</p>
+            </article>
+            <article class="skill-block reveal">
+              <h3>通信与分析基础</h3>
+              <p>具备通信工程与信号处理基础，能够结合系统建模、仿真与实验验证理解复杂问题。</p>
+            </article>
+          </div>
+
+          <div class="skills-marquee reveal" aria-label="技术栈">
+            <span>Python</span>
+            <span>LangGraph</span>
+            <span>Streamlit</span>
+            <span>FastAPI</span>
+            <span>ChromaDB</span>
+            <span>n8n</span>
+            <span>SQL</span>
+            <span>PowerShell</span>
+            <span>Git</span>
+            <span>MATLAB</span>
+          </div>
+        </section>
+
+        <section class="section contact-section" id="contact">
+          <div class="contact-card reveal">
+            <div>
+              <p class="section-kicker">联系方式</p>
+              <h2>如果你在找能把 AI 能力接到真实流程里的新人，欢迎联系我。</h2>
+            </div>
+            <div class="contact-info">
+              <a href="tel:19959709053">199 5970 9053</a>
+              <a href="https://github.com/huige66631" target="_blank" rel="noreferrer">github.com/huige66631</a>
+              <p>通信工程本科 · 武夷学院 · 2026 届</p>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
