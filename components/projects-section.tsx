@@ -60,7 +60,7 @@ const projects = [
     ],
     outcome:
       "将传统人工翻阅手册、FAQ 和测试规范的查询流程收敛为可检索、可引用、可追问的知识问答流程；构建离线检索评测集并持续优化复杂 PDF 场景下的召回效果，在自建评测集上将 Recall@4 从 0.3125 提升至 0.5625，MRR@4 从 0.2292 提升至 0.4271，完成从资料入库到 Docker 部署的完整应用闭环。",
-    href: "https://github.com/huige66631/telecom-knowledge-assistant",
+    href: "https://github.com/huige66631/Enterprise-Knowledge-Assistant",
   },
   {
     title: "AI 行业情报自动采集与知识蒸馏系统",
