@@ -3,292 +3,400 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>赵晖 | AI 应用开发与自动化</title>
+    <title>赵晖 | AI 应用开发 / Agent / 自动化</title>
     <meta
       name="description"
-      content="赵晖的个人网站，展示 AI Agent、自动化工作流、通信与工程实现能力。"
+      content="赵晖的求职个人网站，展示 AI 应用开发、Agent、RAG、自动化系统与通信工程相关项目实践。"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="background-orb orb-a"></div>
-    <div class="background-orb orb-b"></div>
-    <div class="background-grid" aria-hidden="true"></div>
+    <div class="page-bg" aria-hidden="true"></div>
 
     <div class="page-shell">
       <header class="site-header" id="top">
-        <a class="brand" href="#top" aria-label="返回顶部">
-          <span class="brand-mark"></span>
-          <span class="brand-text">赵晖</span>
-        </a>
+        <a class="brand" href="#top">赵晖</a>
 
         <button
           class="menu-toggle"
           type="button"
           aria-expanded="false"
           aria-controls="site-nav"
-          aria-label="打开导航菜单"
+          aria-label="打开导航"
         >
           <span></span>
           <span></span>
         </button>
 
         <nav class="site-nav" id="site-nav" aria-label="主导航">
-          <a href="#home">首页</a>
+          <a href="#about">首页</a>
           <a href="#projects">项目</a>
-          <a href="#works">作品</a>
           <a href="#skills">能力</a>
           <a href="#contact">联系</a>
         </nav>
       </header>
 
       <main>
-        <section class="hero section" id="home">
-          <div class="hero-inner reveal">
-            <p class="hero-tagline">AI 应用开发 / 自动化工作流 / 通信工程背景</p>
+        <section class="hero section" id="about">
+          <div class="hero-copy reveal">
+            <p class="hero-kicker">赵晖 / AI 应用开发 / Agent / 自动化</p>
             <h1>
-              把复杂工具链，
-              <br />
-              做成真正能解决问题的应用。
+              把 Agent、自动化与
+              <span>真实业务场景</span>
+              <em>做成可落地的应用</em>
             </h1>
-            <p class="hero-description">
-              我是赵晖，正在寻找 AI 应用开发、Agent 工程和智能自动化相关岗位。
-              我关注的不只是模型本身，而是如何把工作流、知识检索、本地工具和真实业务场景接起来，
-              做成能落地、能解释、能持续复用的系统。
+            <p class="hero-summary">
+              通信工程背景，持续做 Agent、RAG、工作流自动化与知识系统方向的项目实践。
+              希望进入能把技术能力真正转化为业务价值的团队，参与从问题定义到应用落地的完整过程。
             </p>
 
             <div class="hero-actions">
-              <a class="button button-primary" href="#projects">查看重点项目</a>
-              <a class="button button-secondary" href="#contact">联系我</a>
-            </div>
-
-            <div class="hero-signals">
-              <article>
-                <span>04</span>
-                <p>重点 AI / Agent 项目持续迭代</p>
-              </article>
-              <article>
-                <span>20+</span>
-                <p>AI 行业情报与自动化信息入口整合</p>
-              </article>
-              <article>
-                <span>通信 + AI</span>
-                <p>跨学科的问题拆解与工程实现能力</p>
-              </article>
+              <a class="button button-primary" href="#projects">查看项目</a>
+              <a class="button button-secondary" href="resume-zhaohui.pdf" target="_blank">下载简历</a>
             </div>
           </div>
 
-          <div class="hero-marquee" aria-label="项目风格视觉画廊">
-            <div class="hero-marquee-fade"></div>
-            <div class="hero-marquee-track" id="hero-marquee-track"></div>
-          </div>
+          <aside class="hero-panel reveal">
+            <article>
+              <p>求职方向</p>
+              <strong>AI 应用开发、Agent 工作流、知识系统、自动化效率工具</strong>
+            </article>
+            <article>
+              <p>代表项目</p>
+              <strong>NetDiag Agent / 企业知识助手 / AI 情报蒸馏系统</strong>
+            </article>
+            <article>
+              <p>工作方式</p>
+              <strong>偏工程落地，重视结构化拆解、结果可解释性与持续迭代。</strong>
+            </article>
+          </aside>
         </section>
 
         <section class="section intro-band reveal">
           <p>
-            我想做的，是把大模型能力接到真实流程里，而不是停留在演示层。
-            无论是本地诊断 Agent、知识助手、自动化工作流，还是行业情报系统，我更在意的是
-            问题是否被真正解决，流程是否变得更清晰，结果是否更可信。
+            我希望把大模型、自动化流程和真实业务问题连起来，做能真正提高效率、能被使用、也能持续迭代的应用。
           </p>
         </section>
 
-        <section class="section project-section" id="projects">
-          <div class="section-heading reveal">
+        <section class="section" id="projects">
+          <div class="section-head reveal">
             <div>
-              <p class="section-kicker">重点项目</p>
-              <h2>围绕真实问题，构建可落地的 AI 系统。</h2>
+              <p class="section-label">项目经历</p>
+              <h2>用项目说明我如何拆问题、搭结构，并把事情真正做出来</h2>
             </div>
-            <p class="section-summary">
-              这些项目的共同点不是技术名词，而是都在处理真实效率问题：
-              怎么做诊断、怎么做检索、怎么做自动化、怎么让信息沉淀下来。
-            </p>
+
+            <div class="signal-list">
+              <article>
+                <p>项目方向</p>
+                <strong>Agent / RAG / 自动化</strong>
+              </article>
+              <article>
+                <p>表达重点</p>
+                <strong>问题定义 - 方法实现 - 结果价值</strong>
+              </article>
+              <article>
+                <p>偏好风格</p>
+                <strong>偏工程落地，强调结构与闭环</strong>
+              </article>
+            </div>
           </div>
 
           <div class="project-list">
             <article class="project-card reveal">
-              <div class="project-meta">
-                <p>2026.05 - 至今</p>
-                <span>Python / Streamlit / LangGraph / RAG</span>
-              </div>
               <div class="project-main">
-                <h3>NetDiag Agent 本地网络诊断智能体</h3>
-                <p>
-                  面向网页访问慢、单站异常和游戏卡顿等场景，把分散的
-                  <code>ping</code>、<code>nslookup</code>、<code>tracert</code>
-                  排障流程整合成一个可交互诊断工具。
+                <div class="project-tags">
+                  <span>01</span>
+                  <span>AI Agent 开发</span>
+                  <span>本地探测 + 知识增强</span>
+                </div>
+                <div class="project-title-row">
+                  <h3>NetDiag Agent 本地网络诊断智能体</h3>
+                  <time>2026.05 - 至今</time>
+                </div>
+                <p class="project-summary">
+                  面向个人网络排障场景，把分散的本地诊断命令整合为可交互、可解释的网络诊断 Agent。
                 </p>
+                <div class="tech-list">
+                  <span>Python</span>
+                  <span>Streamlit</span>
+                  <span>LangGraph</span>
+                  <span>DeepSeek API</span>
+                  <span>ChromaDB</span>
+                  <span>RAG</span>
+                </div>
+                <a class="project-link" href="https://github.com/huige66631/NetDiag-Agent" target="_blank" rel="noreferrer">查看项目仓库</a>
               </div>
-              <div class="project-grid">
-                <div>
-                  <h4>问题</h4>
-                  <p>个人用户依赖命令行排查网络问题，定位门槛高，结果难理解。</p>
-                </div>
-                <div>
-                  <h4>方法</h4>
-                  <p>基于 LangGraph 组织工具调用流程，结合知识库、长期记忆和 Query Rewrite 提升诊断质量。</p>
-                </div>
-                <div>
-                  <h4>结果</h4>
-                  <p>完成“症状输入 - 探测执行 - 结论解释”的完整原型，让网络排障更高效、更可解释。</p>
-                </div>
+
+              <div class="project-detail">
+                <article>
+                  <p>项目背景</p>
+                  <strong>
+                    用户往往只能描述“网页很慢”或“某个网站打不开”，但问题背后可能涉及 DNS、网关、丢包或路径异常，手动排查门槛高。
+                  </strong>
+                </article>
+                <article>
+                  <p>关键实现</p>
+                  <ul>
+                    <li>基于 LangGraph 搭建工具调用式诊断流程，接入大模型做诊断规划与结果解释。</li>
+                    <li>封装网关、DNS、延迟、丢包、路由路径等多维检测工具，形成真实探测闭环。</li>
+                    <li>加入向量知识库、长期记忆与轻量 Query 改写，提升口语化问题下的诊断质量。</li>
+                  </ul>
+                </article>
+                <article class="accent-card">
+                  <p>结果与价值</p>
+                  <strong>
+                    实现真实探测、知识检索与记忆增强结合的诊断原型，提升个人网络问题定位效率与结果可解释性。
+                  </strong>
+                </article>
               </div>
-              <a class="project-link" href="https://github.com/huige66631/NetDiag-Agent" target="_blank" rel="noreferrer">查看 GitHub</a>
             </article>
 
             <article class="project-card reveal">
-              <div class="project-meta">
-                <p>2026.06 - 至今</p>
-                <span>FastAPI / Streamlit / Hybrid RAG / Docker</span>
-              </div>
               <div class="project-main">
-                <h3>通信 / 电子行业企业知识助手 Agent</h3>
-                <p>
-                  面向资料分散、检索效率低和答案难溯源的问题，搭建可本地部署的企业知识助手，
-                  让资料查询变成可检索、可引用、可追问的流程。
+                <div class="project-tags">
+                  <span>02</span>
+                  <span>AI Agent / RAG 开发</span>
+                  <span>知识问答 + 多轮追问</span>
+                </div>
+                <div class="project-title-row">
+                  <h3>通信 / 电子行业企业知识助手 Agent</h3>
+                  <time>2026.06 - 至今</time>
+                </div>
+                <p class="project-summary">
+                  针对企业资料分散、人工检索效率低的问题，设计可本地部署的企业知识助手与多轮问答流程。
                 </p>
+                <div class="tech-list">
+                  <span>Python</span>
+                  <span>FastAPI</span>
+                  <span>Streamlit</span>
+                  <span>LangGraph</span>
+                  <span>Hybrid RAG</span>
+                  <span>SQLite</span>
+                  <span>Docker</span>
+                </div>
+                <a class="project-link" href="https://github.com/huige66631/telecom-knowledge-assistant" target="_blank" rel="noreferrer">查看项目仓库</a>
               </div>
-              <div class="project-grid">
-                <div>
-                  <h4>问题</h4>
-                  <p>传统手册与测试规范依赖人工翻阅，检索耗时，连续追问体验弱。</p>
-                </div>
-                <div>
-                  <h4>方法</h4>
-                  <p>实现文档上传解析、Hybrid RAG、KB-first Agent 路由与会话记忆持久化。</p>
-                </div>
-                <div>
-                  <h4>结果</h4>
-                  <p>打通从资料入库到前端问答交互的完整闭环，提升定位效率与回答可信度。</p>
-                </div>
+
+              <div class="project-detail">
+                <article>
+                  <p>项目背景</p>
+                  <strong>
+                    传统资料查询依赖人工翻阅文档，结果难溯源、追问体验弱，且不同资料来源之间缺少统一入口。
+                  </strong>
+                </article>
+                <article>
+                  <p>关键实现</p>
+                  <ul>
+                    <li>完成文档上传解析、切分、索引与问答全链路，实现资料入库到前端交互闭环。</li>
+                    <li>构建关键词检索 + 向量检索 + RRF 融合的 Hybrid RAG，兼顾召回与相关性。</li>
+                    <li>基于 LangGraph 设计 KB-first Agent 路由，并实现上下文感知 Query Rewrite 与会话记忆。</li>
+                  </ul>
+                </article>
+                <article class="accent-card">
+                  <p>结果与价值</p>
+                  <strong>
+                    把人工翻阅手册的流程收敛成可检索、可引用、可追问的知识问答体验，提升资料定位效率与回答可信度。
+                  </strong>
+                </article>
               </div>
-              <a class="project-link" href="https://github.com/huige66631/telecom-knowledge-assistant" target="_blank" rel="noreferrer">查看 GitHub</a>
             </article>
 
             <article class="project-card reveal">
-              <div class="project-meta">
-                <p>2026.06 - 至今</p>
-                <span>Obsidian / Codex / PowerShell / GitHub</span>
-              </div>
               <div class="project-main">
-                <h3>AI 行业情报自动采集与知识蒸馏系统</h3>
-                <p>
-                  针对 AI 行业信息更新快、来源分散、长期知识难沉淀的问题，
-                  构建“自动采集 - 周级蒸馏 - 长期回填”的个人知识闭环。
+                <div class="project-tags">
+                  <span>03</span>
+                  <span>自动化工作流</span>
+                  <span>采集 - 蒸馏 - 沉淀</span>
+                </div>
+                <div class="project-title-row">
+                  <h3>AI 行业情报自动采集与知识蒸馏系统</h3>
+                  <time>2026.06 - 至今</time>
+                </div>
+                <p class="project-summary">
+                  围绕 AI 行业资讯跟踪，搭建“自动采集 - 周级蒸馏 - 长期沉淀”的知识闭环系统。
                 </p>
+                <div class="tech-list">
+                  <span>Obsidian</span>
+                  <span>Codex</span>
+                  <span>PowerShell</span>
+                  <span>Scheduled Tasks</span>
+                  <span>Markdown</span>
+                  <span>GitHub</span>
+                </div>
               </div>
-              <div class="project-grid">
-                <div>
-                  <h4>问题</h4>
-                  <p>手工整理行业信息耗时高，且难以持续沉淀成长期可用的知识资产。</p>
+
+              <div class="project-detail">
+                <article>
+                  <p>项目背景</p>
+                  <strong>
+                    AI 行业更新快、来源分散、长期知识难沉淀，手工整理既耗时，也很难形成稳定的知识迭代机制。
+                  </strong>
+                </article>
+                <article>
+                  <p>关键实现</p>
+                  <ul>
+                    <li>搭建约 20 个资讯入口的采集链路，覆盖 GitHub、RSS、Hacker News、Reddit 等来源。</li>
+                    <li>通过 Codex 自动执行日报整理、周报蒸馏与长期知识回填，降低重复整理成本。</li>
+                    <li>结合 PowerShell 脚本与任务调度，完成发布、同步与本地知识库维护。</li>
+                  </ul>
+                </article>
+                <article class="accent-card">
+                  <p>结果与价值</p>
+                  <strong>
+                    打通日报采集、自动整理、周报生成与长期回填链路，预计每天节省 30 - 45 分钟整理时间。
+                  </strong>
+                </article>
+              </div>
+            </article>
+
+            <article class="project-card reveal">
+              <div class="project-main">
+                <div class="project-tags">
+                  <span>04</span>
+                  <span>n8n 自动化开发</span>
+                  <span>资讯筛选 + 自动推送</span>
                 </div>
-                <div>
-                  <h4>方法</h4>
-                  <p>整合约 20 个资讯入口，并通过 Codex 自动任务与脚本同步串起整理、发布与回填。</p>
+                <div class="project-title-row">
+                  <h3>新闻聚合与智能推送工作流</h3>
+                  <time>2026.03 - 2026.04</time>
                 </div>
-                <div>
-                  <h4>结果</h4>
-                  <p>打通日报、周报和长期沉淀链路，预计每天节省 30 到 45 分钟的信息整理时间。</p>
+                <p class="project-summary">
+                  为多平台新闻收集场景搭建自动化抓取、筛选、分类与推送工作流，减少人工重复操作。
+                </p>
+                <div class="tech-list">
+                  <span>n8n</span>
+                  <span>API 对接</span>
+                  <span>定时任务</span>
+                  <span>消息推送</span>
                 </div>
+              </div>
+
+              <div class="project-detail">
+                <article>
+                  <p>项目背景</p>
+                  <strong>
+                    多平台新闻分散，人工收集和筛选效率低，难以持续稳定地获取高质量信息。
+                  </strong>
+                </article>
+                <article>
+                  <p>关键实现</p>
+                  <ul>
+                    <li>配置多源新闻抓取节点，实现资讯自动采集。</li>
+                    <li>搭建关键词过滤、去重、分类规则，对信息进行结构化筛选。</li>
+                    <li>完成定时触发与推送流程，减少人工重复操作。</li>
+                  </ul>
+                </article>
+                <article class="accent-card">
+                  <p>结果与价值</p>
+                  <strong>
+                    实现新闻从采集、清洗到推送的全流程自动化，提升信息获取效率与内容质量。
+                  </strong>
+                </article>
               </div>
             </article>
           </div>
         </section>
 
-        <section class="section works-section" id="works">
-          <div class="section-heading reveal">
+        <section class="section" id="skills">
+          <div class="section-head reveal section-head-simple">
             <div>
-              <p class="section-kicker">作品切片</p>
-              <h2>不只是项目名，更是我解决问题的方式。</h2>
-            </div>
-          </div>
-
-          <div class="works-layout">
-            <article class="work-feature reveal">
-              <p class="work-type">Automation Workflow</p>
-              <h3>新闻聚合与智能推送工作流</h3>
-              <p>
-                用 n8n 把多源新闻抓取、关键词过滤、去重分类和消息推送串成一条稳定可复用的自动化链路，
-                减少重复操作，提升信息获取效率。
-              </p>
-              <ul>
-                <li>多源采集与调度</li>
-                <li>规则化筛选与清洗</li>
-                <li>消息自动推送</li>
-              </ul>
-            </article>
-
-            <div class="works-stack">
-              <article class="mini-work reveal">
-                <p class="work-type">Research x Engineering</p>
-                <h3>OFDM 无线语音传输系统</h3>
-                <p>基于 MATLAB / Simulink 完成语音采集、调制解调、信道仿真、同步与均衡设计，验证通信链路闭环。</p>
-              </article>
-              <article class="mini-work reveal">
-                <p class="work-type">Execution Style</p>
-                <h3>我的工作方式</h3>
-                <p>倾向先拆问题，再搭流程，最后把结果做成能反复复用的系统。这也是我做 Agent 和自动化项目的一贯方法。</p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        <section class="section skills-section" id="skills">
-          <div class="section-heading reveal">
-            <div>
-              <p class="section-kicker">能力结构</p>
-              <h2>把开发、自动化和业务理解连接起来。</h2>
+              <p class="section-label">能力模块</p>
+              <h2>技术能力围绕应用开发、自动化与工程落地展开</h2>
             </div>
           </div>
 
           <div class="skills-grid">
-            <article class="skill-block reveal">
-              <h3>AI 应用开发</h3>
-              <p>熟悉大模型 API 调用、Prompt 设计、RAG、轻量 Query Rewrite、记忆增强与 Agent 工作流落地。</p>
+            <article class="skill-card reveal">
+              <h3>AI 应用与 Agent</h3>
+              <div class="skill-tags">
+                <span>LangGraph</span>
+                <span>RAG</span>
+                <span>Hybrid RAG</span>
+                <span>Query Rewrite</span>
+                <span>记忆增强</span>
+                <span>Prompt 设计</span>
+              </div>
             </article>
-            <article class="skill-block reveal">
-              <h3>工程实现</h3>
-              <p>使用 Python 完成脚本、接口联调、数据处理和原型开发，了解 FastAPI、Streamlit、SQLite、Docker 等常见工程组件。</p>
+            <article class="skill-card reveal">
+              <h3>开发与工程实现</h3>
+              <div class="skill-tags">
+                <span>Python</span>
+                <span>FastAPI</span>
+                <span>Streamlit</span>
+                <span>Java</span>
+                <span>SQL</span>
+                <span>Git</span>
+                <span>Docker</span>
+              </div>
             </article>
-            <article class="skill-block reveal">
-              <h3>自动化工作流</h3>
-              <p>熟悉 n8n、PowerShell、定时任务和多源数据采集编排，擅长把重复动作收敛成稳定流程。</p>
+            <article class="skill-card reveal">
+              <h3>自动化与数据处理</h3>
+              <div class="skill-tags">
+                <span>n8n</span>
+                <span>PowerShell</span>
+                <span>Scheduled Tasks</span>
+                <span>Pandas</span>
+                <span>NumPy</span>
+                <span>Excel</span>
+              </div>
             </article>
-            <article class="skill-block reveal">
-              <h3>通信与分析基础</h3>
-              <p>具备通信工程与信号处理基础，能够结合系统建模、仿真与实验验证理解复杂问题。</p>
+            <article class="skill-card reveal">
+              <h3>通信与仿真基础</h3>
+              <div class="skill-tags">
+                <span>OFDM</span>
+                <span>QPSK / 16QAM</span>
+                <span>PCM</span>
+                <span>信道估计</span>
+                <span>频域均衡</span>
+                <span>MATLAB / Simulink</span>
+              </div>
             </article>
-          </div>
-
-          <div class="skills-marquee reveal" aria-label="技术栈">
-            <span>Python</span>
-            <span>LangGraph</span>
-            <span>Streamlit</span>
-            <span>FastAPI</span>
-            <span>ChromaDB</span>
-            <span>n8n</span>
-            <span>SQL</span>
-            <span>PowerShell</span>
-            <span>Git</span>
-            <span>MATLAB</span>
           </div>
         </section>
 
-        <section class="section contact-section" id="contact">
+        <section class="section" id="contact">
           <div class="contact-card reveal">
-            <div>
-              <p class="section-kicker">联系方式</p>
-              <h2>如果你在找能把 AI 能力接到真实流程里的新人，欢迎联系我。</h2>
+            <div class="contact-main">
+              <p class="section-label">联系方式</p>
+              <h2>我希望进入能把 AI 能力真正做成应用的团队</h2>
+              <p>
+                如果你正在寻找一位愿意快速学习、能把问题拆开并推进到可用原型的候选人，欢迎直接联系我。
+              </p>
+
+              <div class="intentions">
+                <span>AI 应用开发</span>
+                <span>Agent 工作流</span>
+                <span>RAG / 知识系统</span>
+                <span>自动化工具</span>
+              </div>
+
+              <div class="contact-actions">
+                <a class="button button-primary" href="resume-zhaohui.pdf" target="_blank">查看简历</a>
+                <a class="button button-secondary" href="https://github.com/huige66631" target="_blank" rel="noreferrer">GitHub</a>
+              </div>
             </div>
-            <div class="contact-info">
-              <a href="tel:19959709053">199 5970 9053</a>
-              <a href="https://github.com/huige66631" target="_blank" rel="noreferrer">github.com/huige66631</a>
-              <p>通信工程本科 · 武夷学院 · 2026 届</p>
+
+            <div class="contact-side">
+              <article>
+                <p>当前意向</p>
+                <strong>关注 AI 应用开发、Agent、自动化与知识系统方向的岗位，希望参与从问题定义到应用落地的完整过程。</strong>
+              </article>
+              <div class="contact-grid">
+                <a href="tel:19959709053">
+                  <span>电话</span>
+                  <strong>19959709053</strong>
+                </a>
+                <a href="mailto:1030089807@qq.com">
+                  <span>邮箱</span>
+                  <strong>1030089807@qq.com</strong>
+                </a>
+              </div>
             </div>
           </div>
         </section>
