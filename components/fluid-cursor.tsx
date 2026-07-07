@@ -9,6 +9,11 @@ interface FluidCursorProps {
   className?: string;
 }
 
+const POINTER_RADIUS_PX = 7;
+const POINTER_FORCE = 1.7;
+const MAX_POINTER_VELOCITY = 140;
+const COLOR_SPLAT_STRENGTH = 0.2;
+
 const SHADERS = {
   vertex: `
     precision highp float;
@@ -52,7 +57,7 @@ const SHADERS = {
 
     void main () {
       vec2 coord = vUv - u_dt * bilerp(u_velocity_texture, vUv, u_texel).xy * u_texel;
-      float dissipation = .96;
+      float dissipation = .91;
       gl_FragColor = dissipation * bilerp(u_input_texture, coord, u_texel);
       gl_FragColor.a = 1.;
     }
@@ -149,7 +154,9 @@ const SHADERS = {
 
     void main () {
       vec3 C = texture2D(u_output_texture, vUv).rgb;
-      gl_FragColor = vec4(vec3(1.) - C, 1.);
+      float intensity = max(max(C.r, C.g), C.b);
+      float alpha = smoothstep(0.04, 1.1, intensity) * 0.5;
+      gl_FragColor = vec4(C * 1.18, alpha);
     }
   `,
 };
@@ -178,6 +185,10 @@ interface ShaderProgram {
 
 function u(uniforms: Uniforms, name: string): WebGLUniformLocation | null {
   return uniforms[name] ?? null;
+}
+
+function clampVelocity(value: number): number {
+  return Math.max(-MAX_POINTER_VELOCITY, Math.min(MAX_POINTER_VELOCITY, value));
 }
 
 function createWebGLContext(canvas: HTMLCanvasElement) {
@@ -291,7 +302,11 @@ function createWebGLContext(canvas: HTMLCanvasElement) {
     };
   };
 
-  const createDoubleFBO = (w: number, h: number, type: number = gl.RGBA): DoubleFBO => {
+  const createDoubleFBO = (
+    w: number,
+    h: number,
+    type: number = gl.RGBA
+  ): DoubleFBO => {
     let fbo1 = createFBO(w, h, type);
     let fbo2 = createFBO(w, h, type);
 
@@ -339,6 +354,8 @@ export function FluidCursor({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
     const ctx = createWebGLContext(canvas);
     if (!ctx) return;
 
@@ -346,7 +363,7 @@ export function FluidCursor({
 
     const pointer = { x: 0, y: 0, dx: 0, dy: 0, moved: false };
     let isPreview = true;
-    let pointerSize = 4 / window.innerHeight;
+    let pointerSize = 0.003;
 
     let outputColor: DoubleFBO;
     let velocity: DoubleFBO;
@@ -364,29 +381,34 @@ export function FluidCursor({
     };
 
     const resize = () => {
-      pointerSize = 4 / window.innerHeight;
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = Math.max(1, Math.floor(rect.width));
+      canvas.height = Math.max(1, Math.floor(rect.height));
+      pointerSize = POINTER_RADIUS_PX / Math.max(canvas.width, canvas.height);
       initFBOs();
     };
 
     const updatePointer = (x: number, y: number) => {
       pointer.moved = true;
-      pointer.dx = 5 * (x - pointer.x);
-      pointer.dy = 5 * (y - pointer.y);
+      pointer.dx = clampVelocity(POINTER_FORCE * (x - pointer.x));
+      pointer.dy = clampVelocity(POINTER_FORCE * (y - pointer.y));
       pointer.x = x;
       pointer.y = y;
     };
 
     const onMouseMove = (e: MouseEvent) => {
       isPreview = false;
-      updatePointer(e.pageX, e.pageY);
+      const rect = canvas.getBoundingClientRect();
+      updatePointer(e.clientX - rect.left, e.clientY - rect.top);
     };
 
     const onTouchMove = (e: TouchEvent) => {
       isPreview = false;
       const touch = e.targetTouches[0];
-      if (touch) updatePointer(touch.pageX, touch.pageY);
+      if (touch) {
+        const rect = canvas.getBoundingClientRect();
+        updatePointer(touch.clientX - rect.left, touch.clientY - rect.top);
+      }
     };
 
     const render = (t: number) => {
@@ -407,7 +429,7 @@ export function FluidCursor({
           0.08 * Math.sin(0.0067 * t + 3.2) +
           0.05 * Math.cos(0.0089 * t + 5.0);
 
-        updatePointer(x * window.innerWidth, y * window.innerHeight);
+        updatePointer(x * canvas.width, y * canvas.height);
       }
 
       if (pointer.moved) {
@@ -415,14 +437,25 @@ export function FluidCursor({
 
         const { splat } = programs;
         gl.useProgram(splat.program);
-        gl.uniform1i(u(splat.uniforms, "u_input_texture"), velocity.read().attach(1));
-        gl.uniform1f(u(splat.uniforms, "u_ratio"), canvas.width / canvas.height);
+        gl.uniform1i(
+          u(splat.uniforms, "u_input_texture"),
+          velocity.read().attach(1)
+        );
+        gl.uniform1f(
+          u(splat.uniforms, "u_ratio"),
+          canvas.width / canvas.height
+        );
         gl.uniform2f(
           u(splat.uniforms, "u_point"),
           pointer.x / canvas.width,
           1 - pointer.y / canvas.height
         );
-        gl.uniform3f(u(splat.uniforms, "u_point_value"), pointer.dx, -pointer.dy, 1);
+        gl.uniform3f(
+          u(splat.uniforms, "u_point_value"),
+          pointer.dx,
+          -pointer.dy,
+          1
+        );
         gl.uniform1f(u(splat.uniforms, "u_point_size"), pointerSize);
         blit(velocity.write());
         velocity.swap();
@@ -433,54 +466,107 @@ export function FluidCursor({
         );
         gl.uniform3f(
           u(splat.uniforms, "u_point_value"),
-          1 - color.r,
-          1 - color.g,
-          1 - color.b
+          color.r * COLOR_SPLAT_STRENGTH,
+          color.g * COLOR_SPLAT_STRENGTH,
+          color.b * COLOR_SPLAT_STRENGTH
         );
         blit(outputColor.write());
         outputColor.swap();
       }
 
-      const { divergence, pressure: pressureProg, gradientSubtract, advection, output } = programs;
+      const {
+        divergence,
+        pressure: pressureProg,
+        gradientSubtract,
+        advection,
+        output,
+      } = programs;
 
       gl.useProgram(divergence.program);
-      gl.uniform2f(u(divergence.uniforms, "u_texel"), velocity.texelSizeX, velocity.texelSizeY);
-      gl.uniform1i(u(divergence.uniforms, "u_velocity_texture"), velocity.read().attach(1));
+      gl.uniform2f(
+        u(divergence.uniforms, "u_texel"),
+        velocity.texelSizeX,
+        velocity.texelSizeY
+      );
+      gl.uniform1i(
+        u(divergence.uniforms, "u_velocity_texture"),
+        velocity.read().attach(1)
+      );
       blit(divergenceFBO);
 
       gl.useProgram(pressureProg.program);
-      gl.uniform2f(u(pressureProg.uniforms, "u_texel"), velocity.texelSizeX, velocity.texelSizeY);
-      gl.uniform1i(u(pressureProg.uniforms, "u_divergence_texture"), divergenceFBO.attach(1));
+      gl.uniform2f(
+        u(pressureProg.uniforms, "u_texel"),
+        velocity.texelSizeX,
+        velocity.texelSizeY
+      );
+      gl.uniform1i(
+        u(pressureProg.uniforms, "u_divergence_texture"),
+        divergenceFBO.attach(1)
+      );
 
       for (let i = 0; i < 4; i++) {
-        gl.uniform1i(u(pressureProg.uniforms, "u_pressure_texture"), pressure.read().attach(2));
+        gl.uniform1i(
+          u(pressureProg.uniforms, "u_pressure_texture"),
+          pressure.read().attach(2)
+        );
         blit(pressure.write());
         pressure.swap();
       }
 
       gl.useProgram(gradientSubtract.program);
-      gl.uniform2f(u(gradientSubtract.uniforms, "u_texel"), velocity.texelSizeX, velocity.texelSizeY);
-      gl.uniform1i(u(gradientSubtract.uniforms, "u_pressure_texture"), pressure.read().attach(1));
-      gl.uniform1i(u(gradientSubtract.uniforms, "u_velocity_texture"), velocity.read().attach(2));
+      gl.uniform2f(
+        u(gradientSubtract.uniforms, "u_texel"),
+        velocity.texelSizeX,
+        velocity.texelSizeY
+      );
+      gl.uniform1i(
+        u(gradientSubtract.uniforms, "u_pressure_texture"),
+        pressure.read().attach(1)
+      );
+      gl.uniform1i(
+        u(gradientSubtract.uniforms, "u_velocity_texture"),
+        velocity.read().attach(2)
+      );
       blit(velocity.write());
       velocity.swap();
 
       gl.useProgram(advection.program);
-      gl.uniform2f(u(advection.uniforms, "u_texel"), velocity.texelSizeX, velocity.texelSizeY);
-      gl.uniform1i(u(advection.uniforms, "u_velocity_texture"), velocity.read().attach(1));
-      gl.uniform1i(u(advection.uniforms, "u_input_texture"), velocity.read().attach(1));
+      gl.uniform2f(
+        u(advection.uniforms, "u_texel"),
+        velocity.texelSizeX,
+        velocity.texelSizeY
+      );
+      gl.uniform1i(
+        u(advection.uniforms, "u_velocity_texture"),
+        velocity.read().attach(1)
+      );
+      gl.uniform1i(
+        u(advection.uniforms, "u_input_texture"),
+        velocity.read().attach(1)
+      );
       gl.uniform1f(u(advection.uniforms, "u_dt"), dt);
       blit(velocity.write());
       velocity.swap();
 
       gl.useProgram(advection.program);
-      gl.uniform2f(u(advection.uniforms, "u_texel"), outputColor.texelSizeX, outputColor.texelSizeY);
-      gl.uniform1i(u(advection.uniforms, "u_input_texture"), outputColor.read().attach(2));
+      gl.uniform2f(
+        u(advection.uniforms, "u_texel"),
+        outputColor.texelSizeX,
+        outputColor.texelSizeY
+      );
+      gl.uniform1i(
+        u(advection.uniforms, "u_input_texture"),
+        outputColor.read().attach(2)
+      );
       blit(outputColor.write());
       outputColor.swap();
 
       gl.useProgram(output.program);
-      gl.uniform1i(u(output.uniforms, "u_output_texture"), outputColor.read().attach(1));
+      gl.uniform1i(
+        u(output.uniforms, "u_output_texture"),
+        outputColor.read().attach(1)
+      );
       blit(null);
 
       animationRef.current = requestAnimationFrame(render);
@@ -503,7 +589,7 @@ export function FluidCursor({
   return (
     <canvas
       ref={canvasRef}
-      className={`pointer-events-none mix-blend-multiply blur ${className}`}
+      className={`pointer-events-none ${className}`}
       aria-hidden="true"
     />
   );

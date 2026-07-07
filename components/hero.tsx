@@ -1,162 +1,229 @@
 "use client";
 
-import { ArrowDown, ArrowUpRight, Download } from "lucide-react";
-import { motion, useScroll, useSpring, useTransform } from "motion/react";
+import { ArrowDown, ArrowRight, Download } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
-import { useRef, type ReactNode } from "react";
-import { FluidCursor } from "./fluid-cursor";
-import { VisitorInsightCard } from "./visitor-insight-card";
+import { useEffect, useState, type ReactNode } from "react";
+import { PortraitMorph } from "./portrait-morph";
+import { ShaderFlow } from "./shader-flow";
+import { VisitorDeviceCount } from "./visitor-device-count";
+
+const capabilityPills = [
+  "Agent 工作流",
+  "RAG 应用",
+  "自动化系统",
+  "AI 原型落地",
+];
+
+function useTouchLikeDevice(): boolean {
+  const [isTouchLike, setIsTouchLike] = useState(false);
+
+  useEffect(() => {
+    const queries = [
+      window.matchMedia("(hover: none)"),
+      window.matchMedia("(pointer: coarse)"),
+      window.matchMedia("(max-width: 1023px)"),
+    ];
+
+    const syncInputMode = (): void => {
+      setIsTouchLike(queries.some((query) => query.matches));
+    };
+
+    syncInputMode();
+    queries.forEach((query) => {
+      query.addEventListener("change", syncInputMode);
+    });
+
+    return () => {
+      queries.forEach((query) => {
+        query.removeEventListener("change", syncInputMode);
+      });
+    };
+  }, []);
+
+  return isTouchLike;
+}
 
 export function Hero(): ReactNode {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  const { scrollY, scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start start", "end start"],
-  });
-
-  const scaleYRaw = useTransform(scrollYProgress, [0, 0.6], [1, 0.18]);
-  const scaleY = useSpring(scaleYRaw, { stiffness: 100, damping: 28 });
-  const y = useTransform(scrollY, (value) => value * 0.38);
+  const isTouchLike = useTouchLikeDevice();
 
   return (
-    <section ref={sectionRef} className="relative min-h-dvh w-full overflow-hidden">
-      <FluidCursor className="absolute inset-0 -z-10 opacity-90" />
+    <section id="home" className="px-4 pt-4 sm:px-6 lg:px-8">
+      <div className="relative mx-auto min-h-[calc(100svh-1rem)] max-w-[1500px] overflow-hidden rounded-[2rem] border border-violet-300/12 bg-[#080611] shadow-[0_30px_120px_rgba(6,3,18,0.55)] lg:h-[min(calc(100svh-1rem),860px)] lg:min-h-[820px]">
+        <div className="pointer-events-none absolute inset-0 z-0">
+          <ShaderFlow
+            className="absolute inset-0 z-0 h-full w-full opacity-82"
+            brightness={1.2}
+            iterations={12}
+            scale={5.2}
+            flowSpeed={[0.03, 0.11]}
+            colorLowA={[0.12, 0.08, 0.25]}
+            colorHighA={[0.56, 0.4, 0.95]}
+            fadeCx={0.5}
+            fadeCy={0.1}
+            fadeRx={1.4}
+            fadeRy={0.84}
+          />
+          <div className="absolute inset-0 z-10 bg-[radial-gradient(circle_at_18%_24%,rgba(160,120,255,0.18),transparent_24%),radial-gradient(circle_at_78%_34%,rgba(116,82,255,0.18),transparent_22%),linear-gradient(180deg,rgba(8,6,17,0.16),rgba(8,6,17,0.46)_55%,rgba(8,6,17,0.84))]" />
+          <div className="absolute inset-y-0 left-0 z-20 w-[52%] bg-[linear-gradient(90deg,rgba(8,6,17,0.82),rgba(8,6,17,0.56)_45%,rgba(8,6,17,0.10)_100%)]" />
+        </div>
 
-      <motion.div
-        className="pointer-events-none absolute inset-0 -z-20 origin-top will-change-transform"
-        style={{ scaleY, y }}
-        aria-hidden="true"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_18%,rgba(139,149,255,0.26),transparent_24%),radial-gradient(circle_at_78%_58%,rgba(83,95,220,0.34),transparent_28%),linear-gradient(180deg,#060711_0%,#0b1020_52%,#06070b_100%)]" />
-        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent" />
-      </motion.div>
+        <div className="relative z-10 mx-auto flex min-h-[calc(100svh-1rem)] max-w-[1460px] flex-col justify-start px-6 pt-28 pb-12 sm:px-10 sm:pt-32 lg:h-[min(calc(100svh-1rem),860px)] lg:min-h-[820px] lg:px-12 lg:pt-36">
+          <div className="grid items-start gap-12 lg:-translate-y-[100px] lg:grid-cols-[minmax(0,1.02fr)_minmax(430px,590px)] lg:gap-16 xl:grid-cols-[minmax(0,1fr)_minmax(470px,620px)] xl:gap-20">
+            <div className="max-w-[780px]">
+              <motion.p
+                className="text-base font-medium tracking-[0.01em] text-violet-50/78"
+                initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+              >
+                赵晖 / AI 应用开发 / Agent / 自动化
+              </motion.p>
 
-      <div className="mx-auto flex min-h-dvh max-w-7xl flex-col justify-between px-4 pb-14 pt-32 sm:px-6 md:pb-16 lg:px-8 lg:pt-38">
-        <div className="grid gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-end">
-          <div>
-            <motion.p
-              className="text-sm text-foreground/55"
-              initial={{ opacity: 0, y: 18, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-            >
-              赵晖 / AI 应用开发 / Agent / 自动化
-            </motion.p>
+              <motion.h1
+                className="mt-5 max-w-[11.2ch] text-[3.35rem] leading-[1.08] font-medium tracking-tight [text-wrap:balance] text-white sm:max-w-[11.8ch] sm:text-[3.75rem] md:max-w-[12.2ch] md:text-[4.25rem] lg:max-w-[12.6ch] lg:text-[3.65rem] xl:text-[3.75rem] 2xl:text-[4.15rem]"
+                initial={{ opacity: 0, y: 24, filter: "blur(12px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{
+                  duration: 0.62,
+                  delay: 0.04,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                把 Agent、自动化与真实业务
+                <span className="mt-2 block text-violet-100/88">
+                  做成真正可落地的应用
+                </span>
+              </motion.h1>
 
-            <motion.h1
-              className="mt-6 max-w-4xl text-4xl leading-[0.98] font-medium tracking-tight text-foreground sm:text-5xl md:text-6xl lg:text-[4.9rem]"
-              initial={{ opacity: 0, y: 22, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{
-                duration: 0.62,
-                delay: 0.05,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-            >
-              把 Agent、自动化与
-              <span className="block text-foreground/78">
-                真实业务场景
-              </span>
-              <span className="block text-foreground/62 italic">
-                做成可落地的应用
-              </span>
-            </motion.h1>
+              <motion.p
+                className="mt-8 max-w-[31ch] text-lg leading-[1.72] text-violet-50/78 sm:text-[1.65rem]"
+                initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{
+                  duration: 0.55,
+                  delay: 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                通信工程背景，持续做
+                Agent、RAG、知识助手与自动化系统方向的项目实践。
+                我更在意的不只是模型能不能跑，而是它能不能进入真实流程、持续迭代，并稳定产生价值。
+              </motion.p>
 
-            <motion.p
-              className="mt-8 max-w-2xl text-base leading-8 text-foreground/62 sm:text-lg"
-              initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{
-                duration: 0.55,
-                delay: 0.14,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-            >
-              通信工程背景，持续做 Agent、RAG、工作流自动化与知识系统方向的项目实践。
-              希望进入能把技术能力真正转化为业务价值的团队，参与从问题定义到应用落地的完整过程。
-            </motion.p>
+              <motion.div
+                className="mt-11 flex flex-wrap gap-3"
+                initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{
+                  duration: 0.55,
+                  delay: 0.2,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                <Link
+                  href="#projects"
+                  className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-[#140f24] shadow-[0_10px_30px_rgba(255,255,255,0.10)] transition-colors hover:bg-violet-100"
+                >
+                  查看项目
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+                <Link
+                  href="/resume-zhaohui.pdf"
+                  target="_blank"
+                  className="inline-flex items-center gap-2 rounded-full border border-white/18 bg-white/7 px-5 py-3 text-sm font-medium text-violet-50/92 transition-colors hover:border-white/30 hover:bg-white/12"
+                >
+                  下载简历
+                  <Download className="h-4 w-4" />
+                </Link>
+              </motion.div>
+
+              <motion.div
+                className="mt-10 flex flex-wrap gap-2.5"
+                initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{
+                  duration: 0.55,
+                  delay: 0.28,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+              >
+                {capabilityPills.map((item) => (
+                  <span
+                    key={item}
+                    className="rounded-full border border-violet-200/14 bg-violet-200/8 px-3.5 py-1.5 text-sm text-violet-50/78"
+                  >
+                    {item}
+                  </span>
+                ))}
+              </motion.div>
+            </div>
 
             <motion.div
-              className="mt-10 flex flex-wrap gap-3"
-              initial={{ opacity: 0, y: 24, filter: "blur(8px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              className="relative mx-auto mt-2 w-full max-w-[560px] lg:mx-0 lg:mt-6 lg:justify-self-end"
+              initial={{ opacity: 0, y: 28, scale: 0.98, filter: "blur(12px)" }}
+              animate={{ opacity: 1, y: 0, scale: 1, filter: "blur(0px)" }}
               transition={{
-                duration: 0.55,
-                delay: 0.2,
-                ease: [0.25, 0.46, 0.45, 0.94],
+                duration: 0.7,
+                delay: 0.12,
+                ease: [0.22, 1, 0.36, 1],
               }}
             >
-              <Link
-                href="#projects"
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-3 text-sm text-background transition-colors hover:bg-foreground/92"
+              <div
+                className={`${isTouchLike ? "flex" : "hidden"} mb-5 items-center justify-center gap-3 text-violet-50/72`}
               >
-                查看项目
-                <ArrowUpRight className="h-4 w-4" />
-              </Link>
-              <Link
-                href="/resume-zhaohui.pdf"
-                target="_blank"
-                className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/[0.03] px-5 py-3 text-sm text-foreground/84 transition-colors hover:bg-white/[0.07]"
+                <span className="text-sm leading-6">长按下方图片有效果</span>
+                <motion.span
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-sky-200/18 bg-sky-200/8 text-sky-100/90 shadow-[0_0_24px_rgba(125,211,252,0.12)]"
+                  animate={{ y: [0, 7, 0], opacity: [0.62, 1, 0.62] }}
+                  transition={{
+                    duration: 1.45,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  aria-hidden="true"
+                >
+                  <ArrowDown className="h-4 w-4" />
+                </motion.span>
+              </div>
+
+              <div
+                className={`pointer-events-none absolute top-[43%] -left-[15.25rem] z-20 w-56 items-center justify-end gap-3 xl:-left-[16.25rem] ${
+                  isTouchLike ? "hidden" : "hidden lg:flex"
+                }`}
               >
-                下载简历
-                <Download className="h-4 w-4" />
-              </Link>
-            </motion.div>
-          </div>
+                <p className="max-w-[10rem] text-right text-sm leading-6 text-violet-50/68">
+                  鼠标悬停右侧图片有效果
+                </p>
+                <span className="h-px w-9 bg-[linear-gradient(90deg,rgba(186,230,253,0),rgba(186,230,253,0.72))]" />
+                <motion.span
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-sky-200/18 bg-sky-200/8 text-sky-100/90 shadow-[0_0_24px_rgba(125,211,252,0.12)]"
+                  animate={{ x: [0, 8, 0], opacity: [0.6, 1, 0.6] }}
+                  transition={{
+                    duration: 1.5,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  aria-hidden="true"
+                >
+                  <ArrowRight className="h-4 w-4" />
+                </motion.span>
+              </div>
 
-          <div className="flex flex-col gap-5 lg:min-h-[36rem] lg:justify-between">
-            <VisitorInsightCard />
-
-            <motion.div
-              className="justify-self-end rounded-[34px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl lg:max-w-md"
-              initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-              transition={{
-                duration: 0.65,
-                delay: 0.16,
-                ease: [0.25, 0.46, 0.45, 0.94],
-              }}
-            >
-              <div className="grid gap-4">
-                <div className="rounded-[26px] border border-white/8 bg-black/10 p-5">
-                  <p className="text-sm text-foreground/46">求职方向</p>
-                  <p className="mt-3 text-lg leading-8 text-foreground/84">
-                    AI 应用开发、Agent 工作流、知识系统、自动化效率工具
-                  </p>
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
-                  <div className="rounded-[26px] border border-white/8 bg-white/[0.03] p-5">
-                    <p className="text-sm text-foreground/46">代表项目</p>
-                    <p className="mt-3 text-base leading-7 text-foreground/82">
-                      NetDiag Agent / 企业知识助手 / AI 情报蒸馏系统
-                    </p>
-                  </div>
-                  <div className="rounded-[26px] border border-white/8 bg-white/[0.03] p-5">
-                    <p className="text-sm text-foreground/46">工作方式</p>
-                    <p className="mt-3 text-base leading-7 text-foreground/82">
-                      偏工程落地，重视结构化拆解、结果可解释性与持续迭代。
-                    </p>
-                  </div>
+              <div className="relative overflow-hidden rounded-[2rem] border border-violet-200/14 bg-white/8 p-1.5 shadow-[0_24px_80px_rgba(9,4,27,0.42)]">
+                <div className="relative aspect-square overflow-hidden rounded-[1.65rem] bg-[#100a20]">
+                  <PortraitMorph
+                    srcA="/img/portrait-main.webp"
+                    srcB="/img/portrait-wave.webp"
+                    alt="赵晖首页头像"
+                    className="absolute inset-0 h-full w-full"
+                  />
                 </div>
               </div>
+              <VisitorDeviceCount />
             </motion.div>
           </div>
         </div>
-
-        <motion.div
-          className="mt-16 flex items-center justify-between gap-6"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{
-            duration: 0.5,
-            delay: 0.35,
-            ease: [0.25, 0.46, 0.45, 0.94],
-          }}
-        >
-          <div />
-          <ArrowDown className="h-11 w-11 text-foreground/42" strokeWidth={1.2} />
-        </motion.div>
       </div>
     </section>
   );

@@ -9,3 +9,8 @@ database_name = "resume-visitors"
 database_id = "fd7c1cc6-8d9f-4563-b0e5-99cdaf44661c"
 
 [env.production]
+
+[[env.production.d1_databases]]
+binding = "resume_visitors"
+database_name = "resume-visitors"
+database_id = "fd7c1cc6-8d9f-4563-b0e5-99cdaf44661c"

@@ -1,149 +1,149 @@
 "use client";
 
-import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "motion/react";
+import { Download } from "lucide-react";
+import { motion } from "motion/react";
 import Link from "next/link";
-import { useState, type ReactNode } from "react";
+import {
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+  type ReactNode,
+} from "react";
 
-const navLinks = [
-  { href: "#about", label: "首页" },
-  { href: "#projects", label: "项目" },
-  { href: "#skills", label: "能力" },
-  { href: "#contact", label: "联系" },
+type NavItem = {
+  id: string;
+  href: string;
+  label: string;
+};
+
+const NAV_ITEMS: readonly NavItem[] = [
+  { id: "home", href: "#home", label: "首页" },
+  { id: "projects", href: "#projects", label: "项目" },
+  { id: "skills", href: "#skills", label: "能力" },
+  { id: "contact", href: "#contact", label: "联系" },
 ];
 
 export function Header(): ReactNode {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isHidden, setIsHidden] = useState(false);
-  const { scrollY } = useScroll();
+  const listRef = useRef<HTMLUListElement>(null);
+  const itemRefs = useRef<Array<HTMLLIElement | null>>([]);
+  const [activeId, setActiveId] = useState<string>("home");
+  const [pillRect, setPillRect] = useState<{ x: number; width: number } | null>(
+    null
+  );
+  const [hasMeasured, setHasMeasured] = useState(false);
 
-  useMotionValueEvent(scrollY, "change", (latest) => {
-    const previous = scrollY.getPrevious() ?? 0;
+  useEffect(() => {
+    const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(
+      Boolean
+    ) as HTMLElement[];
+    if (!sections.length) return;
 
-    if (latest > previous && latest > 60) {
-      setIsHidden(true);
-    } else {
-      setIsHidden(false);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((entry) => entry.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+        if (visible[0]?.target.id) {
+          setActiveId(visible[0].target.id);
+        }
+      },
+      {
+        rootMargin: "-25% 0px -45% 0px",
+        threshold: [0.2, 0.4, 0.6],
+      }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  useLayoutEffect(() => {
+    const activeIndex = NAV_ITEMS.findIndex((item) => item.id === activeId);
+    const list = listRef.current;
+    const activeEl = activeIndex >= 0 ? itemRefs.current[activeIndex] : null;
+
+    if (!list || !activeEl) {
+      setPillRect(null);
+      return;
     }
-  });
 
-  const closeMenu = () => setIsOpen(false);
+    const listRect = list.getBoundingClientRect();
+    const itemRect = activeEl.getBoundingClientRect();
+
+    setPillRect({
+      x: itemRect.left - listRect.left,
+      width: itemRect.width,
+    });
+  }, [activeId]);
+
+  useEffect(() => {
+    if (!pillRect) return;
+    const id = requestAnimationFrame(() => setHasMeasured(true));
+    return () => cancelAnimationFrame(id);
+  }, [pillRect]);
 
   return (
-    <>
-      <motion.header
-        className="fixed top-0 z-50 w-full"
-        initial={{ opacity: 0, y: -18, filter: "blur(10px)" }}
-        animate={{
-          opacity: 1,
-          y: isHidden && !isOpen ? -120 : 0,
-          filter: isHidden && !isOpen ? "blur(8px)" : "blur(0px)",
-        }}
-        transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
-      >
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 pt-4 sm:px-6 lg:px-8">
-          <div className="flex w-full items-center justify-between rounded-full border border-white/10 bg-black/18 px-4 py-3 shadow-[0_10px_40px_rgba(0,0,0,0.18)] backdrop-blur-xl">
-            <Link
-              href="#about"
-              className="text-sm font-medium tracking-[0.02em] text-foreground"
-            >
-              赵晖
-            </Link>
+    <motion.header
+      className="pointer-events-none fixed inset-x-0 top-4 z-50"
+      initial={{ opacity: 0, y: -18, filter: "blur(10px)" }}
+      animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <div className="mx-auto flex w-fit max-w-[calc(100vw-1.5rem)] items-center justify-center px-3">
+        <div className="pointer-events-auto flex items-center gap-1 rounded-full border border-violet-200/12 bg-[#0f0a1fcc]/85 p-1.5 shadow-[0_16px_60px_rgba(7,4,18,0.38)] backdrop-blur-xl">
+          <ul ref={listRef} className="relative flex items-center gap-1">
+            {pillRect ? (
+              <motion.span
+                aria-hidden="true"
+                className="absolute inset-y-0 left-0 rounded-full border border-violet-200/14 bg-violet-300/12"
+                initial={false}
+                animate={{ x: pillRect.x, width: pillRect.width }}
+                transition={
+                  hasMeasured
+                    ? { type: "spring", stiffness: 380, damping: 32 }
+                    : { duration: 0 }
+                }
+              />
+            ) : null}
 
-            <nav className="hidden items-center gap-1 md:flex" aria-label="Main navigation">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="rounded-full px-3 py-2 text-sm text-foreground/64 transition-colors hover:bg-white/[0.06] hover:text-foreground"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
+            {NAV_ITEMS.map((item, index) => {
+              const isActive = item.id === activeId;
 
-            <div className="hidden md:block">
-              <Link
-                href="#contact"
-                className="rounded-full border border-white/10 bg-white/[0.05] px-4 py-2 text-sm text-foreground/84 transition-colors hover:bg-white/[0.09]"
-              >
-                求职联系
-              </Link>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setIsOpen((value) => !value)}
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-foreground md:hidden"
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isOpen}
-            >
-              <span className="relative block h-3.5 w-3.5">
-                <span
-                  className={`absolute left-0 top-1/2 h-px w-full -translate-y-[5px] bg-current transition-transform duration-300 ${
-                    isOpen ? "translate-y-0 rotate-45" : ""
-                  }`}
-                />
-                <span
-                  className={`absolute left-0 top-1/2 h-px w-full translate-y-[5px] bg-current transition-transform duration-300 ${
-                    isOpen ? "translate-y-0 -rotate-45" : ""
-                  }`}
-                />
-              </span>
-            </button>
-          </div>
-        </div>
-      </motion.header>
-
-      <AnimatePresence>
-        {isOpen ? (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 bg-[#06070dcc]/90 backdrop-blur-2xl md:hidden"
-          >
-            <nav className="mx-auto flex h-full max-w-7xl flex-col gap-4 px-6 pt-30" aria-label="Mobile navigation">
-              {navLinks.map((link, index) => (
-                <motion.div
-                  key={link.href}
-                  initial={{ opacity: 0, x: -26, filter: "blur(10px)" }}
-                  animate={{ opacity: 1, x: 0, filter: "blur(0px)" }}
-                  exit={{ opacity: 0, x: -16, filter: "blur(10px)" }}
-                  transition={{
-                    duration: 0.35,
-                    delay: index * 0.05,
-                    ease: [0.25, 0.46, 0.45, 0.94],
+              return (
+                <li
+                  key={item.id}
+                  ref={(element) => {
+                    itemRefs.current[index] = element;
                   }}
+                  className="relative"
                 >
                   <Link
-                    href={link.href}
-                    onClick={closeMenu}
-                    className="block text-4xl leading-tight text-foreground"
+                    href={item.href}
+                    aria-current={isActive ? "page" : undefined}
+                    className="relative inline-flex min-w-15 items-center justify-center rounded-full px-4 py-2 text-sm font-medium text-foreground/72 transition-colors hover:text-foreground sm:min-w-18"
                   >
-                    {link.label}
+                    <span className={isActive ? "text-foreground" : ""}>
+                      {item.label}
+                    </span>
                   </Link>
-                </motion.div>
-              ))}
+                </li>
+              );
+            })}
+          </ul>
 
-              <motion.div
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 10 }}
-                transition={{ duration: 0.35, delay: 0.28 }}
-                className="pt-6"
-              >
-                <Link
-                  href="#contact"
-                  onClick={closeMenu}
-                  className="inline-flex rounded-full border border-white/10 bg-white/[0.05] px-5 py-3 text-sm text-foreground/84"
-                >
-                  求职联系
-                </Link>
-              </motion.div>
-            </nav>
-          </motion.div>
-        ) : null}
-      </AnimatePresence>
-    </>
+          <Link
+            href="/resume-zhaohui.pdf"
+            target="_blank"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-violet-200/12 bg-violet-300/10 text-foreground/78 transition-colors hover:bg-violet-300/16 hover:text-foreground"
+            aria-label="查看简历"
+          >
+            <Download className="h-4 w-4" />
+          </Link>
+        </div>
+      </div>
+    </motion.header>
   );
 }

@@ -2,21 +2,8 @@ import { Providers } from "@/components/providers";
 import { SkipToContent } from "@/components/skip-to-content";
 import { baseMetadata } from "@/lib/metadata";
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
 
 export const metadata: Metadata = baseMetadata;
 
@@ -37,9 +24,7 @@ export default function RootLayout({
 }>): ReactNode {
   return (
     <html lang="zh-CN" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} min-h-screen bg-background font-sans text-foreground antialiased`}
-      >
+      <body className="min-h-screen bg-background font-sans text-foreground antialiased">
         <Providers>
           <SkipToContent />
           {children}

@@ -115,7 +115,10 @@ const signals = [
 
 export function ProjectsSection(): ReactNode {
   return (
-    <section id="projects" className="px-4 py-20 sm:px-6 md:py-28 lg:px-8">
+    <section
+      id="projects"
+      className="px-4 pt-0 pb-20 sm:px-6 md:pt-0 md:pb-28 lg:px-8"
+    >
       <div className="mx-auto max-w-7xl">
         <motion.div
           className="grid gap-10 border-t border-white/8 pt-10 lg:grid-cols-[1fr_0.84fr] lg:items-end"
@@ -125,20 +128,22 @@ export function ProjectsSection(): ReactNode {
           transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
         >
           <div className="max-w-3xl">
-            <p className="text-sm text-foreground/42">项目经历</p>
-            <h2 className="mt-3 text-3xl leading-tight font-medium tracking-tight text-foreground sm:text-4xl md:text-5xl">
+            <p className="text-foreground/42 text-sm">项目经历</p>
+            <h2 className="text-foreground mt-3 text-3xl leading-tight font-medium tracking-tight sm:text-4xl md:text-5xl">
               用项目说明我如何拆问题、搭结构，并把事情真正做出来
             </h2>
           </div>
 
-          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-1">
-            {signals.map((item) => (
+          <div className="grid gap-3 sm:grid-cols-3 lg:grid-cols-2">
+            {signals.map((item, index) => (
               <div
                 key={item.label}
-                className="rounded-[24px] border border-white/10 bg-white/[0.025] px-4 py-4"
+                className={`rounded-[24px] border border-white/10 bg-white/[0.025] px-4 py-4 ${
+                  index === 2 ? "lg:col-span-2" : ""
+                }`}
               >
-                <p className="text-xs text-foreground/38">{item.label}</p>
-                <p className="mt-2 text-sm leading-6 text-foreground/72">
+                <p className="text-foreground/38 text-xs">{item.label}</p>
+                <p className="text-foreground/72 mt-2 text-sm leading-6">
                   {item.value}
                 </p>
               </div>
@@ -161,29 +166,29 @@ export function ProjectsSection(): ReactNode {
               }}
             >
               <div className="grid gap-0 lg:grid-cols-[0.92fr_1.08fr]">
-                <div className="border-b border-white/8 p-6 md:p-8 lg:border-b-0 lg:border-r">
+                <div className="border-b border-white/8 p-6 md:p-8 lg:border-r lg:border-b-0">
                   <div className="flex flex-wrap items-center gap-3">
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-foreground/42">
+                    <span className="text-foreground/42 rounded-full border border-white/10 px-3 py-1 text-xs">
                       0{index + 1}
                     </span>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-foreground/42">
+                    <span className="text-foreground/42 rounded-full border border-white/10 px-3 py-1 text-xs">
                       {project.role}
                     </span>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-foreground/42">
+                    <span className="text-foreground/42 rounded-full border border-white/10 px-3 py-1 text-xs">
                       {project.focus}
                     </span>
                   </div>
 
                   <div className="mt-6 flex flex-wrap items-start gap-3">
-                    <h3 className="max-w-2xl text-2xl leading-tight font-medium tracking-tight text-foreground md:text-[2rem]">
+                    <h3 className="text-foreground max-w-2xl text-2xl leading-tight font-medium tracking-tight md:text-[2rem]">
                       {project.title}
                     </h3>
-                    <span className="rounded-full border border-white/10 px-3 py-1 text-xs text-foreground/44">
+                    <span className="text-foreground/44 rounded-full border border-white/10 px-3 py-1 text-xs">
                       {project.period}
                     </span>
                   </div>
 
-                  <p className="mt-5 max-w-2xl text-base leading-8 text-foreground/68">
+                  <p className="text-foreground/68 mt-5 max-w-2xl text-base leading-8">
                     {project.summary}
                   </p>
 
@@ -191,7 +196,7 @@ export function ProjectsSection(): ReactNode {
                     {project.stack.map((item) => (
                       <span
                         key={item}
-                        className="rounded-full bg-white/[0.06] px-3 py-1.5 text-sm text-foreground/62"
+                        className="text-foreground/62 rounded-full bg-white/[0.06] px-3 py-1.5 text-sm"
                       >
                         {item}
                       </span>
@@ -203,7 +208,7 @@ export function ProjectsSection(): ReactNode {
                       href={project.href}
                       target="_blank"
                       rel="noreferrer"
-                      className="mt-8 inline-flex items-center gap-2 text-sm text-foreground/76 transition-colors hover:text-foreground"
+                      className="mt-8 inline-flex items-center gap-2 text-sm text-sky-200/86 transition-colors hover:text-sky-100"
                     >
                       查看项目仓库
                       <ArrowUpRight className="h-4 w-4" />
@@ -213,19 +218,19 @@ export function ProjectsSection(): ReactNode {
 
                 <div className="grid gap-0">
                   <div className="border-b border-white/8 p-6 md:p-8">
-                    <p className="text-xs text-foreground/38">项目背景</p>
-                    <p className="mt-3 max-w-2xl text-sm leading-7 text-foreground/66">
+                    <p className="text-foreground/38 text-xs">项目背景</p>
+                    <p className="text-foreground/66 mt-3 max-w-2xl text-sm leading-7">
                       {project.challenge}
                     </p>
                   </div>
 
                   <div className="border-b border-white/8 p-6 md:p-8">
-                    <p className="text-xs text-foreground/38">关键实现</p>
+                    <p className="text-foreground/38 text-xs">关键实现</p>
                     <ul className="mt-3 grid gap-3">
                       {project.contributions.map((item) => (
                         <li
                           key={item}
-                          className="text-sm leading-7 text-foreground/66"
+                          className="text-foreground/66 text-sm leading-7"
                         >
                           {item}
                         </li>
@@ -234,8 +239,8 @@ export function ProjectsSection(): ReactNode {
                   </div>
 
                   <div className="bg-[radial-gradient(circle_at_top_left,rgba(124,136,255,0.16),transparent_34%),linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.015))] p-6 md:p-8">
-                    <p className="text-xs text-foreground/38">结果与价值</p>
-                    <p className="mt-3 max-w-2xl text-sm leading-7 text-foreground/74">
+                    <p className="text-foreground/38 text-xs">结果与价值</p>
+                    <p className="text-foreground/74 mt-3 max-w-2xl text-sm leading-7">
                       {project.outcome}
                     </p>
                   </div>

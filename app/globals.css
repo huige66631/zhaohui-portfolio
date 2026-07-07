@@ -12,8 +12,11 @@
   --accent: #7c88ff;
   --accent-light: #b1b8ff;
   --accent-foreground: #ffffff;
-  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+  --font-sans:
+    var(--font-geist-sans, "Segoe UI"), system-ui, -apple-system, sans-serif;
+  --font-mono:
+    var(--font-geist-mono, "Cascadia Code"), "SFMono-Regular", ui-monospace,
+    monospace;
 }
 
 .dark {
@@ -45,6 +48,7 @@
 html {
   color-scheme: dark;
   scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
   overflow-x: hidden;
 }
 
