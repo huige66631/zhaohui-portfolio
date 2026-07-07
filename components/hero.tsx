@@ -5,6 +5,7 @@ import { motion, useScroll, useSpring, useTransform } from "motion/react";
 import Link from "next/link";
 import { useRef, type ReactNode } from "react";
 import { FluidCursor } from "./fluid-cursor";
+import { VisitorInsightCard } from "./visitor-insight-card";
 
 export function Hero(): ReactNode {
   const sectionRef = useRef<HTMLElement>(null);
@@ -104,16 +105,19 @@ export function Hero(): ReactNode {
             </motion.div>
           </div>
 
-          <motion.div
-            className="justify-self-end rounded-[34px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl lg:max-w-md"
-            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{
-              duration: 0.65,
-              delay: 0.16,
-              ease: [0.25, 0.46, 0.45, 0.94],
-            }}
-          >
+          <div className="flex flex-col gap-5 lg:min-h-[36rem] lg:justify-between">
+            <VisitorInsightCard />
+
+            <motion.div
+              className="justify-self-end rounded-[34px] border border-white/10 bg-white/[0.04] p-6 backdrop-blur-xl lg:max-w-md"
+              initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{
+                duration: 0.65,
+                delay: 0.16,
+                ease: [0.25, 0.46, 0.45, 0.94],
+              }}
+            >
               <div className="grid gap-4">
                 <div className="rounded-[26px] border border-white/8 bg-black/10 p-5">
                   <p className="text-sm text-foreground/46">求职方向</p>
@@ -137,6 +141,7 @@ export function Hero(): ReactNode {
                 </div>
               </div>
             </motion.div>
+          </div>
         </div>
 
         <motion.div

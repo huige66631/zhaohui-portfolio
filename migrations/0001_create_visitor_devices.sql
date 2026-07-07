@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS visitor_devices (
+  device_id TEXT PRIMARY KEY,
+  first_seen_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  last_seen_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  user_agent TEXT
+);
