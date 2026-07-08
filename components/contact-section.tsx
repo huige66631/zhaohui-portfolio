@@ -42,10 +42,10 @@ export function ContactSection(): ReactNode {
             <div className="border-b border-white/8 p-7 sm:p-9 md:p-12 lg:border-b-0 lg:border-r">
               <p className="text-sm text-foreground/42">联系方式</p>
               <h2 className="mt-4 max-w-2xl text-3xl leading-tight font-medium tracking-tight text-foreground sm:text-4xl md:text-5xl">
-                我希望进入能把 AI 能力真正做成应用的团队
+                我希望进入能把 AI 能力真正做成应用闭环的团队
               </h2>
               <p className="mt-6 max-w-xl text-base leading-8 text-foreground/64">
-                如果你正在寻找一位愿意快速学习、能把问题拆开并推进到可用原型的候选人，欢迎直接联系我。
+                如果你正在寻找一位愿意快速学习、能把问题拆开并推进到可运行、可验证原型的候选人，欢迎直接联系我。
               </p>
 
               <div className="mt-8 flex flex-wrap gap-2.5">
@@ -84,7 +84,7 @@ export function ContactSection(): ReactNode {
               <div className="border-b border-white/8 p-7 sm:p-9 md:p-10">
                 <p className="text-xs text-foreground/38">当前意向</p>
                 <p className="mt-3 max-w-lg text-base leading-8 text-foreground/72">
-                  关注 AI 应用开发、Agent、自动化与知识系统方向的岗位，希望参与从问题定义到应用落地的完整过程。
+                  关注 AI Agent 开发、RAG 应用开发与自动化工作流方向的岗位，希望参与从问题定义、工具调用、评测优化到部署演示的完整过程。
                 </p>
               </div>
 

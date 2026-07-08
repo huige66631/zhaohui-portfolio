@@ -77,7 +77,7 @@ export function Hero(): ReactNode {
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               >
-                赵晖 / AI 应用开发 / Agent / 自动化
+                赵晖 / AI Agent / RAG 应用开发
               </motion.p>
 
               <motion.h1
@@ -90,7 +90,7 @@ export function Hero(): ReactNode {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                把 Agent、自动化与真实业务
+                把 Agent、RAG 与自动化流程
                 <span className="mt-2 block text-violet-100/88">
                   做成真正可落地的应用
                 </span>
@@ -106,9 +106,8 @@ export function Hero(): ReactNode {
                   ease: [0.22, 1, 0.36, 1],
                 }}
               >
-                通信工程背景，持续做
-                Agent、RAG、知识助手与自动化系统方向的项目实践。
-                我更在意的不只是模型能不能跑，而是它能不能进入真实流程、持续迭代，并稳定产生价值。
+                通信工程背景，持续做 AI Agent、RAG 应用与自动化工作流方向的项目实践。
+                我更在意的不只是模型能不能跑，而是它能不能进入真实流程、可复测、可迭代，并稳定产生价值。
               </motion.p>
 
               <motion.div

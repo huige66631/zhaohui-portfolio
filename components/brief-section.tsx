@@ -7,7 +7,7 @@ import AIBlob from "./ai-blob";
 const highlights = [
   {
     label: "求职方向",
-    value: "AI 应用开发 / Agent / 智能自动化",
+    value: "AI Agent / RAG 应用开发 / 自动化工作流",
   },
   {
     label: "教育背景",
@@ -15,7 +15,7 @@ const highlights = [
   },
   {
     label: "核心能力",
-    value: "Python、LangGraph、RAG、n8n、Streamlit",
+    value: "Python、LangGraph、Hybrid RAG、FastAPI、Streamlit",
   },
 ];
 
@@ -36,7 +36,7 @@ export function BriefSection(): ReactNode {
         >
           <p className="text-foreground max-w-3xl text-2xl leading-tight font-medium sm:text-3xl md:text-4xl">
             我希望把大模型、自动化流程和真实业务问题连起来，做能真正提高效率、
-            能被使用、也能持续迭代的应用。
+            有数据依据、可复测、也能持续迭代的应用。
           </p>
           <div className="-mt-[30px] flex max-w-3xl justify-center">
             <AIBlob

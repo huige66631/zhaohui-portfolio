@@ -11,9 +11,9 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = createMetadata({
-  title: "赵晖 | AI 应用开发 / Agent / 自动化",
+  title: "赵晖 | AI Agent / RAG 应用开发",
   description:
-    "赵晖的求职个人网站，展示 AI 应用开发、Agent 工作流、自动化系统与通信工程相关项目经验。",
+    "赵晖的求职个人网站，展示 AI Agent、RAG 应用开发、自动化工作流与通信工程相关项目经验。",
   path: "/",
 });
 

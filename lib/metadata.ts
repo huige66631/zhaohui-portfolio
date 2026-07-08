@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const siteConfig = {
   name: "赵晖｜求职个人网站",
   description:
-    "赵晖的个人网站，聚焦 AI 应用开发、Agent、RAG、自动化系统与通信工程相关项目实践。",
+    "赵晖的个人网站，聚焦 AI Agent、RAG 应用开发、自动化工作流与通信工程相关项目实践。",
   url: "https://example.com",
   ogImage: "/og-image.png",
   creator: "赵晖",
@@ -15,10 +15,9 @@ export const siteConfig = {
   ],
   keywords: [
     "赵晖",
-    "AI 应用开发",
-    "Agent",
-    "RAG",
-    "自动化",
+    "AI Agent",
+    "RAG 应用开发",
+    "自动化工作流",
     "LangGraph",
     "通信工程",
     "个人网站",
