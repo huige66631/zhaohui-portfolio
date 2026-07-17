@@ -36,6 +36,38 @@ const projects = [
     href: "https://github.com/huige66631/NetDiag-Agent",
   },
   {
+    title: "Tryrevive 注意力守护与 AI 行动规划平台",
+    period: "2026.06 - 至今",
+    role: "AI 产品 / 全栈开发",
+    focus: "目标拆解 + 跨站回流",
+    summary:
+      "面向容易被推荐流和娱乐网站带走注意力的用户，设计并实现“目标拆解、限时浏览、到点回流、继续行动”的注意力管理平台。",
+    challenge:
+      "传统专注工具通常只能限制访问，难以理解用户当下目标，也无法在用户进入内容平台后维持计划上下文并推动下一步行动。",
+    stack: [
+      "JavaScript",
+      "HTML / CSS",
+      "Chrome Extension MV3",
+      "DeepSeek API",
+      "Cloudflare Workers",
+      "腾讯云 SCF / CloudBase",
+      "GitHub Pages",
+      "Canvas",
+      "Web Audio API",
+    ],
+    contributions: [
+      "将静态原型重构为单页应用，完成登录、MBTI 问卷、三步计划、冥想计时、桌宠状态、本地存档与响应式界面。",
+      "接入 DeepSeek 心语与结构化计划生成，实现 JSON 校验、自动修复和异常降级，并开发 3 套云端代理完成密钥隔离、CORS、限流与超时控制。",
+      "开发 Chrome Extension MV3，通过消息桥、storage 与 alarms 持久化计时会话，实现跨站倒计时、最后一分钟提醒、3 分钟延长、到点自动返回与计划步骤推进。",
+      "支持小红书、B 站、抖音等 8 类平台关键词直达，处理微信内置浏览器与小红书 Deep Link 兼容，并完成移动端 Canvas 降载与输入转义。",
+    ],
+    outcome:
+      "形成“目标拆解 - 平台直达 - 跨站计时 - 自动回流 - 计划步进”的完整闭环，覆盖 8 类常见内容与娱乐平台；完成网页端、浏览器扩展与 3 套云端 AI 代理的多端协作，兼顾国内网络环境、移动端性能与服务安全。",
+    href: "https://0711hackson.github.io/tryrevive",
+    hrefLabel: "体验 Tryrevive",
+    featured: true,
+  },
+  {
     title: "企业知识助手 Agent",
     period: "2026.06 - 至今",
     role: "AI Agent / RAG 开发",
@@ -101,7 +133,14 @@ const projects = [
       "针对多平台新闻来源分散、人工收集与筛选效率低的问题，基于 n8n 搭建自动化新闻采集、清洗、分类与推送工作流。",
     challenge:
       "多平台新闻分散，人工收集和筛选效率低，难以持续稳定地获取高质量信息。",
-    stack: ["n8n", "RSS/API 对接", "定时任务", "关键词过滤", "数据清洗", "消息推送"],
+    stack: [
+      "n8n",
+      "RSS/API 对接",
+      "定时任务",
+      "关键词过滤",
+      "数据清洗",
+      "消息推送",
+    ],
     contributions: [
       "配置 RSS/API 采集节点，实现多源资讯自动采集。",
       "设计关键词过滤、去重和分类规则，对信息进行结构化筛选。",
@@ -113,7 +152,7 @@ const projects = [
 ];
 
 const signals = [
-  { label: "项目方向", value: "Agent / RAG / 自动化" },
+  { label: "项目方向", value: "Agent / AI 应用 / RAG / 自动化" },
   { label: "表达重点", value: "需求拆解 - 工具调用 - 评测优化 - 部署演示" },
   { label: "偏好风格", value: "偏工程落地，强调数据依据与可复测闭环" },
 ];
@@ -160,7 +199,11 @@ export function ProjectsSection(): ReactNode {
           {projects.map((project, index) => (
             <motion.article
               key={project.title}
-              className="overflow-hidden rounded-[34px] border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.025))] backdrop-blur-sm"
+              className={`overflow-hidden rounded-[34px] border backdrop-blur-sm ${
+                project.featured
+                  ? "border-violet-200/20 bg-[radial-gradient(circle_at_12%_8%,rgba(125,211,252,0.12),transparent_28%),linear-gradient(180deg,rgba(139,92,246,0.10),rgba(255,255,255,0.025))] shadow-[0_24px_90px_rgba(77,55,155,0.12)]"
+                  : "border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05),rgba(255,255,255,0.025))]"
+              }`}
               initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
               whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               viewport={{ once: true, margin: "-120px" }}
@@ -215,7 +258,7 @@ export function ProjectsSection(): ReactNode {
                       rel="noreferrer"
                       className="mt-8 inline-flex items-center gap-2 text-sm text-sky-200/86 transition-colors hover:text-sky-100"
                     >
-                      查看项目仓库
+                      {project.hrefLabel ?? "查看项目仓库"}
                       <ArrowUpRight className="h-4 w-4" />
                     </Link>
                   ) : null}

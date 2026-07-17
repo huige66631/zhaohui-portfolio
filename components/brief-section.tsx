@@ -2,7 +2,6 @@
 
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
-import AIBlob from "./ai-blob";
 
 const highlights = [
   {
@@ -18,8 +17,6 @@ const highlights = [
     value: "Python、LangGraph、Hybrid RAG、FastAPI、Streamlit",
   },
 ];
-
-const aboutBlobColors = ["#c4b5fd", "#7dd3fc", "#6366f1", "#22d3ee"];
 
 export function BriefSection(): ReactNode {
   return (
@@ -38,18 +35,6 @@ export function BriefSection(): ReactNode {
             我希望把大模型、自动化流程和真实业务问题连起来，做能真正提高效率、
             有数据依据、可复测、也能持续迭代的应用。
           </p>
-          <div className="-mt-[30px] flex max-w-3xl justify-center">
-            <AIBlob
-              size={619}
-              animationSpeed={0.72}
-              colors={aboutBlobColors}
-              glowIntensity={0.68}
-              innerScale={1.35}
-              noiseScale={3.4}
-              resolution={0.78}
-              className="opacity-92 drop-shadow-[0_0_52px_rgba(125,211,252,0.16)]"
-            />
-          </div>
         </motion.div>
 
         <motion.div
