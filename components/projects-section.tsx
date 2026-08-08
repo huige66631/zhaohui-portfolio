@@ -65,7 +65,6 @@ const projects = [
       "形成“目标拆解 - 平台直达 - 跨站计时 - 自动回流 - 计划步进”的完整闭环，覆盖 8 类常见内容与娱乐平台；完成网页端、浏览器扩展与 3 套云端 AI 代理的多端协作，兼顾国内网络环境、移动端性能与服务安全。",
     href: "https://0711hackson.github.io/tryrevive",
     hrefLabel: "体验 Tryrevive",
-    featured: true,
   },
   {
     title: "论文研读与综述助手 Evidence-first Paper Agent",
@@ -132,32 +131,45 @@ const projects = [
     role: "RAG 开发",
     focus: "合同审查 + 风险提示",
     summary:
-      "面向企业经营者、法务及人力资源人员，构建具备对话式 Agent 的中文合同审查平台，支持 DOCX/PDF 上传、风险识别、法律依据检索、对话修改及原文差异对比。",
+      "面向企业经营者、法务及人力资源人员，搭建本地优先的中文合同审查工作台。支持 DOCX/PDF 上传、合同条款解析、风险识别、法律依据检索、修改提案确认及修订版 Word 导出，形成可追溯的合同审查闭环。",
     challenge:
-      "面向企业经营者、法务及人力资源人员，构建具备对话式 Agent 的中文合同审查平台，支持 DOCX/PDF 上传、风险识别、法律依据检索、对话修改及原文差异对比。",
+      "面向企业经营者、法务及人力资源人员，搭建本地优先的中文合同审查工作台。支持 DOCX/PDF 上传、合同条款解析、风险识别、法律依据检索、修改提案确认及修订版 Word 导出，形成可追溯的合同审查闭环。",
     stack: [
       "Vue 3",
       "Node.js",
       "Express",
       "PostgreSQL",
+      "GIN 全文检索",
       "SSE",
       "RAG",
       "DeepSeek/OpenAI 兼容大模型",
       "BAAI/bge-small-zh-v1.5（512 维）",
       "规则引擎",
-      "文本 Diff",
+      "DOCX OOXML 写回",
+      "SHA-256 版本校验",
     ],
     contributions: [
-      "实现合同 Agent 工具调用流程，根据用户意图自主读取合同、定位条款、检索法律依据并生成审查结论。",
-      "用户通过自然语言提出修改要求后，Agent 自动定位原文、生成替换文本和 Diff 预览，确认后创建新合同版本。",
+      "实现意图识别、模型规划、工具调用和结果评估流程，支持合同问答、条款定位、风险审查、法律检索、合同修改及文件导出，并提供模型不可用时的确定性回退。",
+      "Agent 自动读取合同版本、定位相关条款、检索法律依据并生成结构化修改提案；用户确认后批量写入新版本，支持 Diff 预览、版本 hash 校验、历史版本保留及修订版 DOCX 导出。",
       "基于 PostgreSQL 建设法律事实库，已导入 6.4 万+ 条法律条文及案例，保留来源、版本和内容 hash。",
     ],
     outcome:
-      "实现“对话审查 - 法律引用 - 修改提案 - 确认写入 - 版本对比”智能化闭环；支持 DOCX/PDF 合同上传、风险问题清单、法律依据展示、修改建议与修订文本差异对比；后端 20/20 测试通过，前端生产构建成功。",
+      "实现“自然语言提问/修改 -> Agent 规划 -> 工具调用 -> 法律依据 -> 修改提案 -> 用户确认 -> 修订版 Word”的完整闭环；支持多提案批量确认、跨段落替换、劳动合同规则检查及原文 Diff 对比；后端 38/38 项自动化测试通过，前端生产构建成功。",
     href: "https://tryrevive-d4gzac2aj49df4aa4-1453581918.tcloudbaseapp.com/",
     hrefLabel: "在线演示（简化版）",
+    featured: true,
   },
 ];
+
+const projectOrder = new Map(
+  [
+    "法律合同审查 RAG 智能审查平台",
+    "Tryrevive 注意力守护与 AI 行动规划平台",
+    "论文研读与综述助手 Evidence-first Paper Agent",
+    "AI 行业情报自动采集与知识蒸馏系统",
+    "NetDiag Agent 本地网络诊断智能体",
+  ].map((title, index) => [title, index]),
+);
 
 const signals = [
   { label: "项目方向", value: "Agent / AI 应用 / RAG / 自动化" },
@@ -204,7 +216,14 @@ export function ProjectsSection(): ReactNode {
         </motion.div>
 
         <div className="mt-10 grid gap-6">
-          {projects.map((project, index) => (
+          {projects
+            .slice()
+            .sort(
+              (left, right) =>
+                (projectOrder.get(left.title) ?? Number.MAX_SAFE_INTEGER) -
+                (projectOrder.get(right.title) ?? Number.MAX_SAFE_INTEGER),
+            )
+            .map((project, index) => (
             <motion.article
               key={project.title}
               className={`overflow-hidden rounded-[34px] border backdrop-blur-sm ${
